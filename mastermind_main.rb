@@ -25,6 +25,3 @@ class Pregame
     end
   end
 end
-
-game_run = Pregame.new
-game_run.introduction
