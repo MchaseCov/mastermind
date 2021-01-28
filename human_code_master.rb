@@ -1,9 +1,5 @@
-#The computer (randomly) attempts to guess the code.
-class ComputerGuesser
-  def initialize
-    @game_round = 0
-    @game_over = false
-  end
+class HumanMasterCodeInput
+  def initialize; end
 
   def human_code_input
     puts 'Enter your code of 4 digits from 1 through 6 (example: 5361)'
@@ -13,27 +9,38 @@ class ComputerGuesser
     player_code_array.map! do |item|
       item.to_i
     end
-    puts "Your code is is #{player_code}"
-    computer_guess_generator(player_code_array)
+    @code = player_code_array
+    puts "Your code is is #{@code}"
+    computer = ComputerGuesser.new(@code)
+    computer.computer_guess_generator
     else puts 'Invalid input! Please enter a code consisting of four numbers from 1 to 6'
     end
   end
+end
 
-  def computer_guess_generator(player_code_array)
+
+
+
+#The computer (randomly) attempts to guess the code.
+class ComputerGuesser
+  def initialize(code)
+    @game_round = 0
+    @game_over = false
+    @code = code
+  end 
+  def computer_guess_generator()
     sleep(1)
     @game_round += 1
     if @game_over == false && @game_round < 13
-    @code = player_code_array
-    @computer_guess = Array.new(4) {rand(1...6)}
-    number_compare(@code, @computer_guess)
+      @computer_guess = Array.new(4) { rand(1...6) }
+      number_compare(@computer_guess)
     else
-    puts "The guesser has run out of guesses and the code master wins! The secret code was #{@code}!"
-    thank_you()
+      puts "The guesser has run out of guesses and the code master wins! The secret code was #{@code}!"
+      thank_you()
     end
   end
 
-  def number_compare(player_code, computer_guess)
-    @code = player_code
+  def number_compare(computer_guess)
     @computer_guess = computer_guess
     puts "It is round #{@game_round}. The computer guesses #{@computer_guess}"
     sleep(1)
@@ -49,7 +56,7 @@ class ComputerGuesser
         puts 'Computer, you have a correct number, but in the wrong location'
       end
       while @game_over == false && @game_round < 13
-        computer_guess_generator(@code)
+        computer_guess_generator()
       end
     end
     end

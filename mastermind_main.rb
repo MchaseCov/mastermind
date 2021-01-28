@@ -19,8 +19,10 @@ class Pregame
       game = GameLogic.new(secret_code)
       game.round_starter
     elsif player_choice == 'master'
-      game = ComputerGuesser.new
+      game = HumanMasterCodeInput.new
       game.human_code_input
+      # game = ComputerGuesser.new
+      # game.human_code_input
     else puts 'Sorry, I didn\'t understand. Please enter "breaker" or "master"'
     end
   end
